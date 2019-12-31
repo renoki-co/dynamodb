@@ -8,33 +8,11 @@ use Illuminate\Support\Str;
 use Rennokki\DynamoDb\DynamoDbClientInterface;
 use Rennokki\DynamoDb\RawDynamoDbQuery;
 
-/**
- * Class QueryBuilder.
- *
- *
- * @method QueryBuilder setExpressionAttributeNames(array $mapping)
- * @method QueryBuilder setExpressionAttributeValues(array $mapping)
- * @method QueryBuilder setFilterExpression(string $expression)
- * @method QueryBuilder setKeyConditionExpression(string $expression)
- * @method QueryBuilder setProjectionExpression(string $expression)
- * @method QueryBuilder setUpdateExpression(string $expression)
- * @method QueryBuilder setAttributeUpdates(array $updates)
- * @method QueryBuilder setConsistentRead(bool $consistent)
- * @method QueryBuilder setScanIndexForward(bool $forward)
- * @method QueryBuilder setExclusiveStartKey(mixed $key)
- * @method QueryBuilder setReturnValues(string $type)
- * @method QueryBuilder setRequestItems(array $items)
- * @method QueryBuilder setTableName(string $table)
- * @method QueryBuilder setIndexName(string $index)
- * @method QueryBuilder setSelect(string $select)
- * @method QueryBuilder setItem(array $item)
- * @method QueryBuilder setKeys(array $keys)
- * @method QueryBuilder setLimit(int $limit)
- * @method QueryBuilder setKey(array $key)
- */
 class QueryBuilder
 {
     /**
+     * The DynamoDb service.
+     *
      * @var DynamoDbClientInterface
      */
     private $service;
@@ -46,11 +24,23 @@ class QueryBuilder
      */
     public $query = [];
 
+    /**
+     * Initialize the class.
+     *
+     * @param  \Rennokki\DynamoDb\DynamoDbClientInterface  $service
+     * @return void
+     */
     public function __construct(DynamoDbClientInterface $service)
     {
         $this->service = $service;
     }
 
+    /**
+     * Hydrate the query.
+     *
+     * @param  array  $query
+     * @return \Rennokki\DynamoDb\DynamoDb\QueryBuilder
+     */
     public function hydrate(array $query)
     {
         $this->query = $query;
@@ -58,6 +48,13 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * Set a new attribute name.
+     *
+     * @param  string  $placeholder
+     * @param  string  $name
+     * @return \Rennokki\DynamoDb\DynamoDb\QueryBuilder
+     */
     public function setExpressionAttributeName($placeholder, $name)
     {
         $this->query['ExpressionAttributeNames'][$placeholder] = $name;
@@ -65,6 +62,13 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * Set a new attribute value.
+     *
+     * @param  string  $placeholder
+     * @param  string  $value
+     * @return \Rennokki\DynamoDb\DynamoDb\QueryBuilder
+     */
     public function setExpressionAttributeValue($placeholder, $value)
     {
         $this->query['ExpressionAttributeValues'][$placeholder] = $value;
@@ -73,7 +77,9 @@ class QueryBuilder
     }
 
     /**
-     * @param DynamoDbClient|null $client
+     * Prepare the query.
+     *
+     * @param  DynamoDbClient|null  $client
      * @return ExecutableQuery
      */
     public function prepare(DynamoDbClient $client = null)
@@ -84,7 +90,9 @@ class QueryBuilder
     }
 
     /**
-     * @param  string $method
+     * Call the method.
+     *
+     * @param  string  $method
      * @param  array  $parameters
      * @return mixed
      */

@@ -2,13 +2,7 @@
 
 namespace Rennokki\DynamoDb;
 
-/**
- * Class H.
- *
- * Short for "Helper".
- * We often get breaking changes from Laravel Helpers, so to ensure this won't happen again, we port the helpers here.
- */
-class H
+class Helper
 {
     public static function array_first($array, callable $callback = null, $default = null)
     {
@@ -16,10 +10,12 @@ class H
             if (empty($array)) {
                 return static::value($default);
             }
+
             foreach ($array as $item) {
                 return $item;
             }
         }
+
         foreach ($array as $key => $value) {
             if (call_user_func($callback, $value, $key)) {
                 return $value;

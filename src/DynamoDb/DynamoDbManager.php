@@ -10,43 +10,79 @@ use Rennokki\DynamoDb\DynamoDbClientInterface;
 class DynamoDbManager
 {
     /**
+     * The service.
+     *
      * @var DynamoDbClientInterface
      */
     private $service;
 
     /**
+     * The Marshaler.
+     *
      * @var \Aws\DynamoDb\Marshaler
      */
     public $marshaler;
 
+    /**
+     * Initialize the class.
+     *
+     * @param  \Rennokki\DynamoDb\DynamoDbClientInterface  $service
+     * @return void
+     */
     public function __construct(DynamoDbClientInterface $service)
     {
         $this->service = $service;
         $this->marshaler = $service->getMarshaler();
     }
 
+    /**
+     * Marshal the item.
+     *
+     * @param  array  $item
+     * @return array
+     */
     public function marshalItem($item)
     {
         return $this->marshaler->marshalItem($item);
     }
 
+    /**
+     * Marshal the value.
+     *
+     * @param  mixed  $value
+     * @return array
+     */
     public function marshalValue($value)
     {
         return $this->marshaler->marshalValue($value);
     }
 
+    /**
+     * Unmarshal an item.
+     *
+     * @param  array  $item
+     * @return array
+     */
     public function unmarshalItem($item)
     {
         return $this->marshaler->unmarshalItem($item);
     }
 
+    /**
+     * Unmarshal a value.
+     *
+     * @param  mixed  $value
+     * @return array
+     */
     public function unmarshalValue($value)
     {
         return $this->marshaler->unmarshalValue($value);
     }
 
     /**
-     * @param string|null $connection
+     * Get the client.
+     *
+     * @param  string|null  $connection
      * @return \Aws\DynamoDb\DynamoDbClient
      */
     public function client($connection = null)
@@ -55,6 +91,8 @@ class DynamoDbManager
     }
 
     /**
+     * Get the instance of a new query builder.
+     *
      * @return QueryBuilder
      */
     public function newQuery()
@@ -63,7 +101,9 @@ class DynamoDbManager
     }
 
     /**
-     * @param string $table
+     * Set the table name.
+     *
+     * @param  string  $table
      * @return QueryBuilder
      */
     public function table($table)

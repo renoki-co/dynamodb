@@ -56,7 +56,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
 
             // see http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.DynamoDBLocal.html
-            'endpoint' => env('DYNAMODB_LOCAL_ENDPOINT'),
+            'endpoint' => env('AWS_DYNAMODB_LOCAL_ENDPOINT'),
 
             // If true, it will use Laravel Log.
             // For advanced options, see http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/configuration.html
@@ -72,7 +72,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
 
             // see http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.DynamoDBLocal.html
-            'endpoint' => env('DYNAMODB_LOCAL_ENDPOINT'),
+            'endpoint' => env('AWS_DYNAMODB_LOCAL_ENDPOINT'),
 
             // If true, it will use Laravel Log.
             // For advanced options, see http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/configuration.html

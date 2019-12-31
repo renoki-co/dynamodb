@@ -5,7 +5,7 @@ namespace Rennokki\DynamoDb\ConditionAnalyzer;
 use Illuminate\Support\Arr;
 use Rennokki\DynamoDb\ComparisonOperator;
 use Rennokki\DynamoDb\DynamoDbModel;
-use Rennokki\DynamoDb\H;
+use Rennokki\DynamoDb\Helper;
 
 /**
  * Class ConditionAnalyzer.
@@ -13,20 +13,32 @@ use Rennokki\DynamoDb\H;
 class Analyzer
 {
     /**
+     * The attached DynamoDb model.
+     *
      * @var DynamoDbModel
      */
     private $model;
 
     /**
+     * The conditions.
+     *
      * @var array
      */
     private $conditions = [];
 
     /**
+     * The index name.
+     *
      * @var string
      */
     private $indexName;
 
+    /**
+     * Set the DynamoDb model.
+     *
+     * @param  \Rennokki\DynamoDb\DynamoDbModel  $model
+     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     */
     public function on(DynamoDbModel $model)
     {
         $this->model = $model;
@@ -34,6 +46,12 @@ class Analyzer
         return $this;
     }
 
+    /**
+     * Set the index name.
+     *
+     * @param string|null  $index
+     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     */
     public function withIndex($index)
     {
         $this->indexName = $index;
@@ -41,6 +59,12 @@ class Analyzer
         return $this;
     }
 
+    /**
+     * Set the conditions.
+     *
+     * @param  array  $conditions
+     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     */
     public function analyze($conditions)
     {
         $this->conditions = $conditions;
@@ -48,7 +72,12 @@ class Analyzer
         return $this;
     }
 
-    public function isExactSearch()
+    /**
+     * Check if the search is exact.
+     *
+     * @return bool
+     */
+    public function isExactSearch(): bool
     {
         if (empty($this->conditions)) {
             return false;
@@ -68,6 +97,8 @@ class Analyzer
     }
 
     /**
+     * Get the index.
+     *
      * @return Index|null
      */
     public function index()
@@ -75,6 +106,11 @@ class Analyzer
         return $this->getIndex();
     }
 
+    /**
+     * Get the conditions for the keys.
+     *
+     * @return array
+     */
     public function keyConditions()
     {
         $index = $this->getIndex();
@@ -86,6 +122,11 @@ class Analyzer
         return $this->identifierConditions();
     }
 
+    /**
+     * Filter the conditions.
+     *
+     * @return array
+     */
     public function filterConditions()
     {
         $keyConditions = $this->keyConditions() ?: [];
@@ -132,7 +173,7 @@ class Analyzer
      */
     private function getCondition($column)
     {
-        return H::array_first($this->conditions, function ($condition) use ($column) {
+        return Helper::array_first($this->conditions, function ($condition) use ($column) {
             return $condition['column'] === $column;
         });
     }
@@ -150,6 +191,8 @@ class Analyzer
     }
 
     /**
+     * Get the index.
+     *
      * @return Index|null
      */
     private function getIndex()
@@ -184,7 +227,14 @@ class Analyzer
         return $index;
     }
 
-    private function hasValidQueryOperator($hash, $range = null)
+    /**
+     * Check if the query is valid.
+     *
+     * @param  string  $hash
+     * @param  string|null  $range
+     * @return bool
+     */
+    private function hasValidQueryOperator($hash, $range = null): bool
     {
         $hashCondition = $this->getCondition($hash);
 
