@@ -784,7 +784,8 @@ class DynamoDbQueryBuilder
      * @param  string  $useIterator
      * @return \Rennokki\DynamoDb\DynamoDbCollection
      */
-    protected function getAll($columns = [], $limit = self::MAX_LIMIT, $useIterator = self::DEFAULT_TO_ITERATOR) {
+    protected function getAll($columns = [], $limit = self::MAX_LIMIT, $useIterator = self::DEFAULT_TO_ITERATOR)
+    {
         $analyzer = $this->getConditionAnalyzer();
 
         if ($analyzer->isExactSearch()) {
@@ -831,7 +832,8 @@ class DynamoDbQueryBuilder
      * @param  int  $limit
      * @return RawDynamoDbQuery
      */
-    public function toDynamoDbQuery($columns = [], $limit = self::MAX_LIMIT) {
+    public function toDynamoDbQuery($columns = [], $limit = self::MAX_LIMIT)
+    {
         $this->applyScopes();
 
         $this->resetExpressions();

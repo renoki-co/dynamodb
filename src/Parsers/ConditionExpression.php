@@ -60,7 +60,8 @@ class ConditionExpression
      * @param  ExpressionAttributeNames  $names
      * @return void
      */
-    public function __construct(Placeholder $placeholder, ExpressionAttributeValues $values, ExpressionAttributeNames $names) {
+    public function __construct(Placeholder $placeholder, ExpressionAttributeValues $values, ExpressionAttributeNames $names)
+    {
         $this->placeholder = $placeholder;
         $this->values = $values;
         $this->names = $names;

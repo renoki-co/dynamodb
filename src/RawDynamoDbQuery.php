@@ -48,8 +48,7 @@ class RawDynamoDbQuery implements \IteratorAggregate, \ArrayAccess, \Countable
 
     /**
      * Whether a offset exists.
-     * http://php.net/manual/en/arrayaccess.offsetexists.php
-
+     * http://php.net/manual/en/arrayaccess.offsetexists.php.
      * @param  mixed  $offset
      * @return bool
      */
@@ -60,7 +59,7 @@ class RawDynamoDbQuery implements \IteratorAggregate, \ArrayAccess, \Countable
 
     /**
      * Offset to retrieve.
-     * http://php.net/manual/en/arrayaccess.offsetget.php
+     * http://php.net/manual/en/arrayaccess.offsetget.php.
      *
      * @param  mixed  $offset
      * @return mixed
@@ -89,7 +88,7 @@ class RawDynamoDbQuery implements \IteratorAggregate, \ArrayAccess, \Countable
 
     /**
      * Offset to unset.
-     * http://php.net/manual/en/arrayaccess.offsetunset.php
+     * http://php.net/manual/en/arrayaccess.offsetunset.php.
      *
      * @param  mixed  $offset
      * @return void
@@ -101,7 +100,7 @@ class RawDynamoDbQuery implements \IteratorAggregate, \ArrayAccess, \Countable
 
     /**
      * Retrieve an external iterator.
-     * http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * http://php.net/manual/en/iteratoraggregate.getiterator.php.
      *
      * @return \Traversable
      */
@@ -112,7 +111,7 @@ class RawDynamoDbQuery implements \IteratorAggregate, \ArrayAccess, \Countable
 
     /**
      * Count elements of an object.
-     * http://php.net/manual/en/countable.count.php
+     * http://php.net/manual/en/countable.count.php.
      *
      * @return int
      */
