@@ -7,7 +7,12 @@ use Rennokki\DynamoDb\ComparisonOperator;
 
 class KeyConditionExpression extends ConditionExpression
 {
-    protected function getSupportedOperators()
+    /**
+     * Get the list of supported operators in key conditions.
+     *
+     * @return array
+     */
+    protected function getSupportedOperators(): array
     {
         return Arr::only(static::OPERATORS, [
             ComparisonOperator::EQ,

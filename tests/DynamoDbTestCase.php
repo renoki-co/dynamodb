@@ -5,9 +5,6 @@ namespace Rennokki\DynamoDb\Tests;
 use Orchestra\Testbench\TestCase;
 use Rennokki\DynamoDb\DynamoDbServiceProvider;
 
-/**
- * Class DynamoDbTestCase.
- */
 abstract class DynamoDbTestCase extends TestCase
 {
     public function setUp(): void

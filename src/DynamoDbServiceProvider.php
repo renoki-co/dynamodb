@@ -9,7 +9,7 @@ use Rennokki\DynamoDb\DynamoDb\DynamoDbManager;
 class DynamoDbServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application events.
+     * Bootstrap any application services.
      *
      * @return void
      */
@@ -25,7 +25,9 @@ class DynamoDbServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register any application services.
+     *
+     * @return void
      */
     public function register()
     {

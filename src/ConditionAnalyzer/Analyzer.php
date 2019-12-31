@@ -7,9 +7,6 @@ use Rennokki\DynamoDb\ComparisonOperator;
 use Rennokki\DynamoDb\DynamoDbModel;
 use Rennokki\DynamoDb\Helper;
 
-/**
- * Class ConditionAnalyzer.
- */
 class Analyzer
 {
     /**
@@ -36,8 +33,8 @@ class Analyzer
     /**
      * Set the DynamoDb model.
      *
-     * @param  \Rennokki\DynamoDb\DynamoDbModel  $model
-     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     * @param  DynamoDbModel  $model
+     * @return \Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
      */
     public function on(DynamoDbModel $model)
     {
@@ -50,7 +47,7 @@ class Analyzer
      * Set the index name.
      *
      * @param string|null  $index
-     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     * @return \Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
      */
     public function withIndex($index)
     {
@@ -63,7 +60,7 @@ class Analyzer
      * Set the conditions.
      *
      * @param  array  $conditions
-     * @return Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
+     * @return \Rennokki\DynamoDb\ConditionAnalyzer\Analyzer
      */
     public function analyze($conditions)
     {
@@ -111,7 +108,7 @@ class Analyzer
      *
      * @return array
      */
-    public function keyConditions()
+    public function keyConditions(): array
     {
         $index = $this->getIndex();
 
@@ -127,7 +124,7 @@ class Analyzer
      *
      * @return array
      */
-    public function filterConditions()
+    public function filterConditions(): array
     {
         $keyConditions = $this->keyConditions() ?: [];
 
@@ -171,7 +168,7 @@ class Analyzer
      *
      * @return array
      */
-    private function getCondition($column)
+    private function getCondition($column): array
     {
         return Helper::array_first($this->conditions, function ($condition) use ($column) {
             return $condition['column'] === $column;
@@ -183,7 +180,7 @@ class Analyzer
      *
      * @return array
      */
-    private function getConditions($columns)
+    private function getConditions($columns): array
     {
         return array_filter($this->conditions, function ($condition) use ($columns) {
             return in_array($condition['column'], $columns);

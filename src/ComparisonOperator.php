@@ -2,9 +2,6 @@
 
 namespace Rennokki\DynamoDb;
 
-/**
- * Class DynamoDbOperator.
- */
 class ComparisonOperator
 {
     const EQ = 'EQ';
@@ -21,7 +18,12 @@ class ComparisonOperator
     const NULL = 'NULL';
     const NOT_NULL = 'NOT_NULL';
 
-    public static function getOperatorMapping()
+    /**
+     * Get hte operators mapping.
+     *
+     * @return array
+     */
+    public static function getOperatorMapping(): array
     {
         return [
             '=' => static::EQ,
@@ -40,30 +42,51 @@ class ComparisonOperator
         ];
     }
 
-    public static function getSupportedOperators()
+    /**
+     * Get the list of supported operators (by DynamoDb names)
+     *
+     * @return array
+     */
+    public static function getSupportedOperators(): array
     {
         return array_keys(static::getOperatorMapping());
     }
 
-    public static function isValidOperator($operator)
+    /**
+     * Check if the operator is valid.
+     *
+     * @return bool
+     */
+    public static function isValidOperator($operator): bool
     {
         $operator = strtolower($operator);
-
         $mapping = static::getOperatorMapping();
 
         return isset($mapping[$operator]);
     }
 
-    public static function getDynamoDbOperator($operator)
+    /**
+     * Get the operator for the DynamoDb operator.
+     *
+     * @param  string  $operator
+     * @return string
+     */
+    public static function getDynamoDbOperator($operator): string
     {
         $mapping = static::getOperatorMapping();
-
         $operator = strtolower($operator);
 
         return $mapping[$operator];
     }
 
-    public static function getQuerySupportedOperators($isRangeKey = false)
+    /**
+     * Get a list of query supported operators
+     * wether is a range key or not.
+     *
+     * @param  bool  $isRangeKey
+     * @return array
+     */
+    public static function getQuerySupportedOperators($isRangeKey = false): array
     {
         if ($isRangeKey) {
             return [
@@ -80,19 +103,40 @@ class ComparisonOperator
         return [static::EQ];
     }
 
-    public static function isValidQueryOperator($operator, $isRangeKey = false)
+    /**
+     * Check if the operator is valid for query.
+     *
+     * @param  string  $operator
+     * @param  bool  $isRangeKey
+     * @return bool
+     */
+    public static function isValidQueryOperator($operator, $isRangeKey = false): bool
     {
         $dynamoDbOperator = static::getDynamoDbOperator($operator);
 
         return static::isValidQueryDynamoDbOperator($dynamoDbOperator, $isRangeKey);
     }
 
-    public static function isValidQueryDynamoDbOperator($dynamoDbOperator, $isRangeKey = false)
+    /**
+     * Check if the operator is valid for DynamoDb query.
+     *
+     * @param  string  $dynamoDbOperator
+     * @param  bool  $isRangeKey
+     * @return bool
+     */
+    public static function isValidQueryDynamoDbOperator($dynamoDbOperator, $isRangeKey = false): bool
     {
         return in_array($dynamoDbOperator, static::getQuerySupportedOperators($isRangeKey));
     }
 
-    public static function is($op, $dynamoDbOperator)
+    /**
+     * Check if the operator is a DynamoDb operator.
+     *
+     * @param  string  $op
+     * @param  string  $dynamoDbOperator
+     * @return bool
+     */
+    public static function is($op, $dynamoDbOperator): bool
     {
         $mapping = static::getOperatorMapping();
 

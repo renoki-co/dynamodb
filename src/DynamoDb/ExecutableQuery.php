@@ -24,7 +24,7 @@ class ExecutableQuery
      * Initialize the class.
      *
      * @param  \Aws\DynamoDb\DynamoDbClient  $client
-     * @param  array $query
+     * @param  array  $query
      * @return void
      */
     public function __construct(DynamoDbClient $client, array $query)

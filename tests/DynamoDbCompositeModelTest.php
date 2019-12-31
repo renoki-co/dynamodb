@@ -9,9 +9,6 @@ use Rennokki\DynamoDb\DynamoDbModel;
 use Rennokki\DynamoDb\Facades\DynamoDb;
 use Rennokki\DynamoDb\RawDynamoDbQuery;
 
-/**
- * Class DynamoDbCompositeModelTest.
- */
 class DynamoDbCompositeModelTest extends DynamoDbNonCompositeModelTest
 {
     protected function getTestModel()

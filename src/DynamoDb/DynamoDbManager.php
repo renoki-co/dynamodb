@@ -4,9 +4,6 @@ namespace Rennokki\DynamoDb\DynamoDb;
 
 use Rennokki\DynamoDb\DynamoDbClientInterface;
 
-/**
- * Class DynamoDb.
- */
 class DynamoDbManager
 {
     /**
@@ -26,7 +23,7 @@ class DynamoDbManager
     /**
      * Initialize the class.
      *
-     * @param  \Rennokki\DynamoDb\DynamoDbClientInterface  $service
+     * @param  DynamoDbClientInterface  $service
      * @return void
      */
     public function __construct(DynamoDbClientInterface $service)
@@ -41,7 +38,7 @@ class DynamoDbManager
      * @param  array  $item
      * @return array
      */
-    public function marshalItem($item)
+    public function marshalItem($item): array
     {
         return $this->marshaler->marshalItem($item);
     }
@@ -52,7 +49,7 @@ class DynamoDbManager
      * @param  mixed  $value
      * @return array
      */
-    public function marshalValue($value)
+    public function marshalValue($value): array
     {
         return $this->marshaler->marshalValue($value);
     }
@@ -63,7 +60,7 @@ class DynamoDbManager
      * @param  array  $item
      * @return array
      */
-    public function unmarshalItem($item)
+    public function unmarshalItem($item): array
     {
         return $this->marshaler->unmarshalItem($item);
     }
@@ -74,7 +71,7 @@ class DynamoDbManager
      * @param  mixed  $value
      * @return array
      */
-    public function unmarshalValue($value)
+    public function unmarshalValue($value): array
     {
         return $this->marshaler->unmarshalValue($value);
     }

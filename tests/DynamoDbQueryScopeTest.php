@@ -5,9 +5,6 @@ namespace Rennokki\DynamoDb\Tests;
 use Illuminate\Support\Str;
 use Rennokki\DynamoDb\DynamoDbQueryBuilder;
 
-/**
- * Class DynamoDbQueryScopeTest.
- */
 class DynamoDbQueryScopeTest extends DynamoDbModelTest
 {
     protected function getTestModel()

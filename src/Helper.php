@@ -4,6 +4,14 @@ namespace Rennokki\DynamoDb;
 
 class Helper
 {
+    /**
+     * Get the first element of the array.
+     *
+     * @param  array  $array
+     * @param  \Closure|null  $callback
+     * @param  mixed  $default
+     * @return mixed
+     */
     public static function array_first($array, callable $callback = null, $default = null)
     {
         if (is_null($callback)) {
@@ -25,6 +33,12 @@ class Helper
         return static::value($default);
     }
 
+    /**
+     * Get the value of the closure or the value itself.
+     *
+     * @param  mixed  $value
+     * @return mixed
+     */
     public static function value($value)
     {
         return $value instanceof \Closure ? $value() : $value;

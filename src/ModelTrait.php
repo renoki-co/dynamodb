@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\App;
 
 trait ModelTrait
 {
+    /**
+     * Boot the model.
+     *
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();
@@ -17,11 +22,21 @@ trait ModelTrait
         ));
     }
 
+    /**
+     * Get the observer class name.
+     *
+     * @return string
+     */
     public static function getObserverClassName()
     {
         return 'Rennokki\DynamoDb\ModelObserver';
     }
 
+    /**
+     * Get the DynamoDb table name.
+     *
+     * @return string
+     */
     public function getDynamoDbTableName()
     {
         return $this->getTable();

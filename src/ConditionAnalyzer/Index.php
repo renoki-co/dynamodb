@@ -55,7 +55,7 @@ class Index
      *
      * @return array
      */
-    public function columns()
+    public function columns(): array
     {
         $columns = [];
 

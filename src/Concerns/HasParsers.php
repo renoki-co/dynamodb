@@ -13,47 +13,64 @@ use Rennokki\DynamoDb\Parsers\UpdateExpression;
 trait HasParsers
 {
     /**
+     * The filter expression.
+     *
      * @var FilterExpression
      */
     protected $filterExpression;
 
     /**
+     * The key condition.
+     *
      * @var KeyConditionExpression
      */
     protected $keyConditionExpression;
 
     /**
+     * The expression for projection.
+     *
      * @var ProjectionExpression
      */
     protected $projectionExpression;
 
     /**
+     * The update expression.
+     *
      * @var UpdateExpression
      */
     protected $updateExpression;
 
     /**
+     * Attribute names of the expression.
+     *
      * @var ExpressionAttributeNames
      */
     protected $expressionAttributeNames;
 
     /**
+     * Expression attribute values.
+     *
      * @var ExpressionAttributeValues
      */
     protected $expressionAttributeValues;
 
     /**
+     * The placeholder for the expression.
+     *
      * @var Placeholder
      */
     protected $placeholder;
 
-    public function setupExpressions()
+    /**
+     * Setup expressions.
+     *
+     * @return void
+     */
+    public function setupExpressions(): void
     {
-        $this->placeholder = new Placeholder();
-
-        $this->expressionAttributeNames = new ExpressionAttributeNames();
-
-        $this->expressionAttributeValues = new ExpressionAttributeValues();
+        $this->placeholder = new Placeholder;
+        $this->expressionAttributeNames = new ExpressionAttributeNames;
+        $this->expressionAttributeValues = new ExpressionAttributeValues;
 
         $this->keyConditionExpression = new KeyConditionExpression(
             $this->placeholder,
@@ -68,11 +85,15 @@ trait HasParsers
         );
 
         $this->projectionExpression = new ProjectionExpression($this->expressionAttributeNames);
-
         $this->updateExpression = new UpdateExpression($this->expressionAttributeNames);
     }
 
-    public function resetExpressions()
+    /**
+     * Reset the expressions.
+     *
+     * @return void
+     */
+    public function resetExpressions(): void
     {
         $this->filterExpression->reset();
         $this->keyConditionExpression->reset();

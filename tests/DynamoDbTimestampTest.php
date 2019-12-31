@@ -6,9 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-/**
- * Class DynamoDbTimestampTest.
- */
 class DynamoDbTimestampTest extends DynamoDbModelTest
 {
     protected function getTestModel()

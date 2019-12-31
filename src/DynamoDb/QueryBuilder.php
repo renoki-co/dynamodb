@@ -27,7 +27,7 @@ class QueryBuilder
     /**
      * Initialize the class.
      *
-     * @param  \Rennokki\DynamoDb\DynamoDbClientInterface  $service
+     * @param  DynamoDbClientInterface  $service
      * @return void
      */
     public function __construct(DynamoDbClientInterface $service)
