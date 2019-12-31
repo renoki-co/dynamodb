@@ -69,9 +69,9 @@ class DynamoDbManager
      * Unmarshal a value.
      *
      * @param  mixed  $value
-     * @return array
+     * @return array|string
      */
-    public function unmarshalValue($value): array
+    public function unmarshalValue($value)
     {
         return $this->marshaler->unmarshalValue($value);
     }

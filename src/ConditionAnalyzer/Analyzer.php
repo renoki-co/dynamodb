@@ -166,9 +166,9 @@ class Analyzer
     /**
      * @param $column
      *
-     * @return array
+     * @return array|null
      */
-    private function getCondition($column): array
+    private function getCondition($column)
     {
         return Helper::array_first($this->conditions, function ($condition) use ($column) {
             return $condition['column'] === $column;
