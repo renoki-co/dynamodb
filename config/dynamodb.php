@@ -36,7 +36,7 @@ return [
 
             // If true, it will use Laravel Log.
             // For advanced options, see http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/configuration.html
-            'debug' => env('DYNAMODB_DEBUG', false),
+            'debug' => env('AWS_DYNAMODB_DEBUG', false),
         ],
 
         'aws_iam_role' => [
@@ -44,7 +44,7 @@ return [
 
             // If true, it will use Laravel Log.
             // For advanced options, see http://docs.aws.amazon.com/aws-sdk-php/v3/guide/guide/configuration.html
-            'debug' => env('DYNAMODB_DEBUG', false),
+            'debug' => env('AWS_DYNAMODB_DEBUG', false),
         ],
 
         'local' => [
