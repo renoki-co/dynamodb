@@ -106,9 +106,9 @@ class Analyzer
     /**
      * Get the conditions for the keys.
      *
-     * @return array
+     * @return array|null
      */
-    public function keyConditions(): array
+    public function keyConditions()
     {
         $index = $this->getIndex();
 
