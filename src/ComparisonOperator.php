@@ -43,7 +43,7 @@ class ComparisonOperator
     }
 
     /**
-     * Get the list of supported operators (by DynamoDb names)
+     * Get the list of supported operators (by DynamoDb names).
      *
      * @return array
      */

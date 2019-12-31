@@ -65,7 +65,7 @@ abstract class DynamoDbModel extends Model
 
     /**
      * Default Date format (ISO 8601 Compliant)
-     * https://www.php.net/manual/en/class.datetimeinterface.php#datetime.constants.atom
+     * https://www.php.net/manual/en/class.datetimeinterface.php#datetime.constants.atom.
      *
      * @var string
      */
