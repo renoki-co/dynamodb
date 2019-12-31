@@ -8,9 +8,6 @@ use Illuminate\Support\Str;
 use Rennokki\DynamoDb\DynamoDbModel;
 use Rennokki\DynamoDb\RawDynamoDbQuery;
 
-/**
- * Class DynamoDbNonCompositeModelTest.
- */
 class DynamoDbNonCompositeModelTest extends DynamoDbModelTest
 {
     protected function getTestModel()

@@ -8,10 +8,19 @@ use Rennokki\DynamoDb\ConditionAnalyzer\Index;
 class DynamoDbCollection extends Collection
 {
     /**
-     * @var \Rennokki\DynamoDb\ConditionAnalyzer\Index
+     * The condition analyzer for index.
+     *
+     * @var \Rennokki\DynamoDb\ConditionAnalyzer\Index|null
      */
     private $conditionIndex = null;
 
+    /**
+     * Initialize the class.
+     *
+     * @param  array  $items
+     * @param  \Rennokki\DynamoDb\ConditionAnalyzer\Index  $conditionIndex
+     * @return void
+     */
     public function __construct(array $items = [], Index $conditionIndex = null)
     {
         parent::__construct($items);
@@ -19,6 +28,11 @@ class DynamoDbCollection extends Collection
         $this->conditionIndex = $conditionIndex;
     }
 
+    /**
+     * Get the last key. Used for limit/offset queries.
+     *
+     * @return null|string
+     */
     public function lastKey()
     {
         $after = $this->last();

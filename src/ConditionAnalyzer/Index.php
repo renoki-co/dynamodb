@@ -5,20 +5,34 @@ namespace Rennokki\DynamoDb\ConditionAnalyzer;
 class Index
 {
     /**
+     * The index name.
+     *
      * @var string
      */
     public $name;
 
     /**
+     * The hash.
+     *
      * @var string
      */
     public $hash;
 
     /**
+     * The range.
+     *
      * @var string
      */
     public $range;
 
+    /**
+     * Initialize the class.
+     *
+     * @param  string  $name
+     * @param  string  $hash
+     * @param  string  $range
+     * @return void
+     */
     public function __construct($name, $hash, $range)
     {
         $this->name = $name;
@@ -26,12 +40,22 @@ class Index
         $this->range = $range;
     }
 
-    public function isComposite()
+    /**
+     * Check if the index is composite.
+     *
+     * @return bool
+     */
+    public function isComposite(): bool
     {
         return isset($this->hash) && isset($this->range);
     }
 
-    public function columns()
+    /**
+     * Build the columns.
+     *
+     * @return array
+     */
+    public function columns(): array
     {
         $columns = [];
 

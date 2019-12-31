@@ -7,9 +7,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-/**
- * Class DynamoDbModel.
- */
 abstract class DynamoDbModel extends Model
 {
     /**
@@ -20,33 +17,38 @@ abstract class DynamoDbModel extends Model
     public $incrementing = false;
 
     /**
+     * The DynamoDb client interface.
+     *
      * @var \Rennokki\DynamoDb\DynamoDbClientInterface
      */
     protected static $dynamoDb;
 
     /**
-     * @deprecated
+     * The DynamoDb marshaler.
+     *
      * @var \Aws\DynamoDb\Marshaler
      */
     protected $marshaler;
 
     /**
-     * @deprecated
+     * The attribute filter.
+     *
      * @var \Rennokki\DynamoDb\EmptyAttributeFilter
      */
     protected $attributeFilter;
 
     /**
-     * Indexes.
-     *   [
-     *     '<simple_index_name>' => [
-     *          'hash' => '<index_key>'
-     *     ],
-     *     '<composite_index_name>' => [
-     *          'hash' => '<index_hash_key>',
-     *          'range' => '<index_range_key>'
-     *     ],
-     *   ].
+     * Indexes for the table.
+     *
+     * [
+     *   '<simple_index_name>' => [
+     *        'hash' => '<index_key>'
+     *   ],
+     *   '<composite_index_name>' => [
+     *        'hash' => '<index_hash_key>',
+     *        'range' => '<index_range_key>'
+     *   ],
+     * ].
      *
      * @var array
      */
@@ -54,6 +56,7 @@ abstract class DynamoDbModel extends Model
 
     /**
      * Array of your composite key.
+     *
      * ['<hash>', '<range>'].
      *
      * @var array
@@ -61,19 +64,24 @@ abstract class DynamoDbModel extends Model
     protected $compositeKey = [];
 
     /**
-     * Default Date format
-     * ISO 8601 Compliant.
+     * Default Date format (ISO 8601 Compliant)
+     * https://www.php.net/manual/en/class.datetimeinterface.php#datetime.constants.atom.
+     *
+     * @var string
      */
     protected $dateFormat = DateTime::ATOM;
 
+    /**
+     * Initialize the class.
+     *
+     * @param  array  $attributes
+     * @return void
+     */
     public function __construct(array $attributes = [])
     {
         $this->bootIfNotBooted();
-
         $this->syncOriginal();
-
         $this->fill($attributes);
-
         $this->setupDynamoDb();
     }
 
@@ -90,8 +98,7 @@ abstract class DynamoDbModel extends Model
     /**
      * Set the DynamoDbClient used by models.
      *
-     * @param DynamoDbClientInterface $dynamoDb
-     *
+     * @param  DynamoDbClientInterface  $dynamoDb
      * @return void
      */
     public static function setDynamoDbClientService(DynamoDbClientInterface $dynamoDb)
@@ -109,17 +116,35 @@ abstract class DynamoDbModel extends Model
         static::$dynamoDb = null;
     }
 
+    /**
+     * Set up the DynamoDb marshaler and attribute filters.
+     *
+     * @return void
+     */
     protected function setupDynamoDb()
     {
         $this->marshaler = static::$dynamoDb->getMarshaler();
         $this->attributeFilter = static::$dynamoDb->getAttributeFilter();
     }
 
+    /**
+     * Create a new DynamoDb Collection instance.
+     *
+     * @param  array  $models
+     * @param  \Rennokki\DynamoDb\ConditionAnalyzer\Index|null  $index
+     * @return DynamoDbCollection
+     */
     public function newCollection(array $models = [], $index = null)
     {
         return new DynamoDbCollection($models, $index);
     }
 
+    /**
+     * Trigger the save action.
+     *
+     * @param  array  $options
+     * @return bool
+     */
     public function save(array $options = [])
     {
         $create = ! $this->exists;
@@ -148,8 +173,8 @@ abstract class DynamoDbModel extends Model
 
         $this->exists = true;
         $this->wasRecentlyCreated = $create;
-        $this->fireModelEvent($create ? 'created' : 'updated', false);
 
+        $this->fireModelEvent($create ? 'created' : 'updated', false);
         $this->finishSave($options);
 
         return $saved;
@@ -157,7 +182,8 @@ abstract class DynamoDbModel extends Model
 
     /**
      * Saves the model to DynamoDb asynchronously and returns a promise.
-     * @param array $options
+     *
+     * @param  array  $options
      * @return bool|\GuzzleHttp\Promise\Promise
      */
     public function saveAsync(array $options = [])
@@ -186,8 +212,8 @@ abstract class DynamoDbModel extends Model
             if (Arr::get($result, '@metadata.statusCode') === 200) {
                 $this->exists = true;
                 $this->wasRecentlyCreated = $create;
-                $this->fireModelEvent($create ? 'created' : 'updated', false);
 
+                $this->fireModelEvent($create ? 'created' : 'updated', false);
                 $this->finishSave($options);
             }
         });
@@ -195,16 +221,36 @@ abstract class DynamoDbModel extends Model
         return $savePromise;
     }
 
+    /**
+     * Trigger the update action.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
     public function update(array $attributes = [], array $options = [])
     {
         return $this->fill($attributes)->save();
     }
 
+    /**
+     * Trigger the update actions and return a promise.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool|\GuzzleHttp\Promise\Promise
+     */
     public function updateAsync(array $attributes = [], array $options = [])
     {
         return $this->fill($attributes)->saveAsync($options);
     }
 
+    /**
+     * Create a new record in the table.
+     *
+     * @param  array  $attributes
+     * @return \Rennokki\DynamoDb\DynamoDbModel
+     */
     public static function create(array $attributes = [])
     {
         $model = new static;
@@ -214,6 +260,11 @@ abstract class DynamoDbModel extends Model
         return $model;
     }
 
+    /**
+     * Trigger the delete action.
+     *
+     * @return bool|null
+     */
     public function delete()
     {
         if (is_null($this->getKeyName())) {
@@ -237,6 +288,11 @@ abstract class DynamoDbModel extends Model
         }
     }
 
+    /**
+     * Trigger the delete action and return a promise.
+     *
+     * @return bool|\GuzzleHttp\Promise\Promise
+     */
     public function deleteAsync()
     {
         if (is_null($this->getKeyName())) {
@@ -260,6 +316,12 @@ abstract class DynamoDbModel extends Model
         }
     }
 
+    /**
+     * Get a list of all of the records.
+     *
+     * @param  array  $columns
+     * @return \Rennokki\DynamoDb\DynamoDbCollection
+     */
     public static function all($columns = [])
     {
         $instance = new static;
@@ -267,6 +329,11 @@ abstract class DynamoDbModel extends Model
         return $instance->newQuery()->get($columns);
     }
 
+    /**
+     * Refresh the model.
+     *
+     * @return \Rennokki\DynamoDb\DynamoDbModel
+     */
     public function refresh()
     {
         if (! $this->exists) {
@@ -283,6 +350,8 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
+     * Generate a new query.
+     *
      * @return DynamoDbQueryBuilder
      */
     public function newQuery()
@@ -296,14 +365,20 @@ abstract class DynamoDbModel extends Model
         return $builder;
     }
 
-    public function hasCompositeKey()
+    /**
+     * Check if the model has a composite key.
+     *
+     * @return bool
+     */
+    public function hasCompositeKey(): bool
     {
         return ! empty($this->compositeKey);
     }
 
     /**
-     * @deprecated
-     * @param $item
+     * Marshal an item.
+     *
+     * @param  array  $item
      * @return array
      */
     public function marshalItem($item)
@@ -312,8 +387,9 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
-     * @deprecated
-     * @param $value
+     * Marshal a value.
+     *
+     * @param  mixed  $value
      * @return array
      */
     public function marshalValue($value)
@@ -322,8 +398,9 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
-     * @deprecated
-     * @param $item
+     * Unmarshal an item.
+     *
+     * @param  array  $item
      * @return array|\stdClass
      */
     public function unmarshalItem($item)
@@ -331,6 +408,12 @@ abstract class DynamoDbModel extends Model
         return $this->marshaler->unmarshalItem($item);
     }
 
+    /**
+     * Set a new id for this model.
+     *
+     * @param  mixed  $id
+     * @return \Rennokki\DynamoDb\DynamoDbModel
+     */
     public function setId($id)
     {
         if (! is_array($id)) {
@@ -347,6 +430,8 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
+     * Get the DynamoDb client.
+     *
      * @return \Aws\DynamoDb\DynamoDbClient
      */
     public function getClient()
@@ -414,6 +499,8 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
+     * Get the DynamoDb index keys.
+     *
      * @return array
      */
     public function getDynamoDbIndexKeys()
@@ -422,7 +509,10 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
+     * Set the DynamoDb index keys.
+     *
      * @param array $dynamoDbIndexKeys
+     * @return void
      */
     public function setDynamoDbIndexKeys($dynamoDbIndexKeys)
     {
@@ -430,7 +520,8 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
-     * @deprecated
+     * Get the DynamoDb marshaler.
+     *
      * @return \Aws\DynamoDb\Marshaler
      */
     public function getMarshaler()

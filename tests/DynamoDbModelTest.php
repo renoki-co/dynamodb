@@ -4,9 +4,6 @@ namespace Rennokki\DynamoDb\Tests;
 
 use Aws\DynamoDb\Marshaler;
 
-/**
- * Class DynamoDbModelTest.
- */
 abstract class DynamoDbModelTest extends DynamoDbTestCase
 {
     /**

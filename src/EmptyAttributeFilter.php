@@ -4,6 +4,11 @@ namespace Rennokki\DynamoDb;
 
 class EmptyAttributeFilter
 {
+    /**
+     * Initialize the class.
+     *
+     * @return void
+     */
     public function __construct()
     {
         //
@@ -11,6 +16,9 @@ class EmptyAttributeFilter
 
     /**
      * Set empty values to NULL since DynamoDB does not like empty values.
+     *
+     * @param  mixed  $store
+     * @return void
      */
     public function filter(&$store)
     {
@@ -26,6 +34,7 @@ class EmptyAttributeFilter
                 if (is_object($value)) {
                     $value = (array) $value;
                 }
+
                 if (is_array($value)) {
                     $this->filter($value);
                 }

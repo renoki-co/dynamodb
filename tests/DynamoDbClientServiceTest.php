@@ -6,9 +6,6 @@ use PHPUnit\Framework\TestCase;
 use Rennokki\DynamoDb\DynamoDbClientInterface;
 use Rennokki\DynamoDb\DynamoDbModel;
 
-/**
- * Class DynamoDbClientServiceTest.
- */
 class DynamoDbClientServiceTest extends TestCase
 {
     public function setUp(): void

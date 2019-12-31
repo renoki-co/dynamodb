@@ -10,20 +10,33 @@ use Illuminate\Support\Facades\Log;
 class DynamoDbClientService implements DynamoDbClientInterface
 {
     /**
+     * A list of clients configurations.
+     *
      * @var array
      */
     protected $clients;
 
     /**
+     * The DynamoDb Marshaler.
+     *
      * @var \Aws\DynamoDb\Marshaler
      */
     protected $marshaler;
 
     /**
+     * The DynamoDb attribute filter.
+     *
      * @var \Rennokki\DynamoDb\EmptyAttributeFilter
      */
     protected $attributeFilter;
 
+    /**
+     * Initialize the class.
+     *
+     * @param  \Aws\DynamoDb\Marshaler  $marshaler
+     * @param  EmptyAttributeFilter  $filter
+     * @return void
+     */
     public function __construct(Marshaler $marshaler, EmptyAttributeFilter $filter)
     {
         $this->marshaler = $marshaler;
@@ -32,6 +45,9 @@ class DynamoDbClientService implements DynamoDbClientInterface
     }
 
     /**
+     * Get the DynamoDb client configuration.
+     *
+     * @param  string|null  $connection
      * @return \Aws\DynamoDb\DynamoDbClient
      */
     public function getClient($connection = null)
@@ -54,6 +70,8 @@ class DynamoDbClientService implements DynamoDbClientInterface
     }
 
     /**
+     * Get the marshaler for DynamoDb.
+     *
      * @return \Aws\DynamoDb\Marshaler
      */
     public function getMarshaler()
@@ -62,6 +80,8 @@ class DynamoDbClientService implements DynamoDbClientInterface
     }
 
     /**
+     * Get the attribute filter.
+     *
      * @return \Rennokki\DynamoDb\EmptyAttributeFilter
      */
     public function getAttributeFilter()
@@ -69,6 +89,12 @@ class DynamoDbClientService implements DynamoDbClientInterface
         return $this->attributeFilter;
     }
 
+    /**
+     * Trigger the log if debug is enabled.
+     *
+     * @param  bool  $debug
+     * @return bool|array
+     */
     protected function getDebugOptions($debug = false)
     {
         if ($debug === true) {

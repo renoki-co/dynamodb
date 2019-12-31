@@ -4,17 +4,6 @@ namespace Rennokki\DynamoDb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @method static \Aws\DynamoDb\DynamoDbClient client()
- * @method static \Rennokki\DynamoDb\DynamoDb\QueryBuilder table($name)
- * @method static \Rennokki\DynamoDb\DynamoDb\QueryBuilder newQuery()
- * @method static array marshalItem($item)
- * @method static array marshalValue($value)
- * @method static mixed unmarshalItem($value)
- * @method static mixed unmarshalValue($value)
- *
- * @see DynamoDbManager
- */
 class DynamoDb extends Facade
 {
     /**

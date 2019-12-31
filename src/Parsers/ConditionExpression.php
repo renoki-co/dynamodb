@@ -9,6 +9,12 @@ use Rennokki\DynamoDb\NotSupportedException;
 
 class ConditionExpression
 {
+    /**
+     * Define a mapping for operators
+     * in DynamoDB.
+     *
+     * @var array
+     */
     const OPERATORS = [
         ComparisonOperator::EQ => '%s = :%s',
         ComparisonOperator::LE => '%s <= :%s',
@@ -26,31 +32,44 @@ class ConditionExpression
     ];
 
     /**
+     * The values for the condition expression.
+     *
      * @var ExpressionAttributeValues
      */
     protected $values;
 
     /**
+     * The attribute names.
+     *
      * @var ExpressionAttributeNames
      */
     protected $names;
 
     /**
+     * The placeholder.
+     *
      * @var Placeholder
      */
     protected $placeholder;
 
-    public function __construct(
-        Placeholder $placeholder,
-        ExpressionAttributeValues $values,
-        ExpressionAttributeNames $names
-    ) {
+    /**
+     * Initialize the class.
+     *
+     * @param  Placeholder  $placeholder
+     * @param  ExpressionAttributeValues  $values
+     * @param  ExpressionAttributeNames  $names
+     * @return void
+     */
+    public function __construct(Placeholder $placeholder, ExpressionAttributeValues $values, ExpressionAttributeNames $names)
+    {
         $this->placeholder = $placeholder;
         $this->values = $values;
         $this->names = $names;
     }
 
     /**
+     * Parse the where condition.
+     *
      * @param array $where
      *   [
      *     'column' => 'name',
@@ -96,6 +115,11 @@ class ConditionExpression
         return implode(' ', $parsed);
     }
 
+    /**
+     * Reset the values.
+     *
+     * @return void
+     */
     public function reset()
     {
         $this->placeholder->reset();
@@ -103,16 +127,37 @@ class ConditionExpression
         $this->values->reset();
     }
 
-    protected function getSupportedOperators()
+    /**
+     * Get a list of all supported operators.
+     *
+     * @return array
+     */
+    protected function getSupportedOperators(): array
     {
         return static::OPERATORS;
     }
 
-    protected function parseNestedCondition(array $conditions)
+    /**
+     * Parse the nested conditions.
+     *
+     * @param  array  $conditions
+     * @return string
+     */
+    protected function parseNestedCondition(array $conditions): string
     {
-        return '('.$this->parse($conditions).')';
+        $conditions = $this->parse($conditions);
+
+        return "({$conditions})";
     }
 
+    /**
+     * Parse the condition.
+     *
+     * @param  string  $name
+     * @param  string  $operator
+     * @param  mixed  $value
+     * @return mixed
+     */
     protected function parseCondition($name, $operator, $value)
     {
         $operators = $this->getSupportedOperators();
@@ -144,26 +189,39 @@ class ConditionExpression
         return sprintf($template, $this->names->placeholder($name), $placeholder);
     }
 
+    /**
+     * Parse the between condition.
+     *
+     * @param  string  $name
+     * @param  mixed  $value
+     * @param  mixed  $template
+     * @return string
+     */
     protected function parseBetweenCondition($name, $value, $template)
     {
         $first = $this->placeholder->next();
-
         $second = $this->placeholder->next();
 
         $this->values->set($first, DynamoDb::marshalValue($value[0]));
-
         $this->values->set($second, DynamoDb::marshalValue($value[1]));
 
         return sprintf($template, $this->names->placeholder($name), $first, $second);
     }
 
+    /**
+     * Parse the whereIn condition.
+     *
+     * @param  string  $name
+     * @param  mixed  $value
+     * @param  mixed  $template
+     * @return void
+     */
     protected function parseInCondition($name, $value, $template)
     {
         $valuePlaceholders = [];
 
         foreach ($value as $item) {
             $placeholder = $this->placeholder->next();
-
             $valuePlaceholders[] = ':'.$placeholder;
 
             $this->values->set($placeholder, DynamoDb::marshalValue($item));
@@ -172,6 +230,13 @@ class ConditionExpression
         return sprintf($template, $this->names->placeholder($name), implode(', ', $valuePlaceholders));
     }
 
+    /**
+     * Parse the null condition.
+     *
+     * @param  string  $name
+     * @param  mixed  $template
+     * @return string
+     */
     protected function parseNullCondition($name, $template)
     {
         return sprintf($template, $this->names->placeholder($name));
