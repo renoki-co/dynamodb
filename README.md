@@ -26,6 +26,7 @@ This package is a fork from [the original package by Bao Pham](https://github.co
   * [limit() / take()](#limit-and-take)
   * [firstOrFail()](#firstorfail) / [findOrFail()](#findorfail)
   * [refresh()](#refresh)
+  * [getItemsCount()](#get-items-count)
   * [Query scope](#query-scope)
   * [REMOVE — Deleting Attributes From An Item](#remove--deleting-attributes-from-an-item)
   * [toSql()](#tosql-style)
@@ -302,6 +303,12 @@ $model->findOrFail(['id' => 'foo', 'id2' => 'bar']);
 ```php
 $model = Model::first();
 $model->refresh();
+```
+
+#### getItemsCount()
+```php
+// returns the approximate total count of the table items
+$total = Model::getItemsCount(); // ex: 5
 ```
 
 #### Query Scope

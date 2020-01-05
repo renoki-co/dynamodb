@@ -530,6 +530,22 @@ abstract class DynamoDbModel extends Model
     }
 
     /**
+     * Get the total item count for the table using
+     * the describeTable() method from AWS SDK.
+     *
+     * @return int
+     */
+    public static function getItemsCount(): int
+    {
+        $model = new static;
+        $describeTable = $model->getClient()->describeTable([
+            'TableName' => $model->getTable(),
+        ]);
+
+        return $describeTable->get('Table')['ItemCount'];
+    }
+
+    /**
      * Remove non-serializable properties when serializing.
      *
      * @return array
