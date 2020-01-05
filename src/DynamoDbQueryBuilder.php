@@ -928,7 +928,7 @@ class DynamoDbQueryBuilder
         }
 
         // could be ['foo', 'bar'], [['id1' => 'foo', 'id2' => 'bar'], ...]
-        return $this->model->hasCompositeKey() ? is_array(Helper::array_first($id)) : is_array($id);
+        return $this->model->hasCompositeKey() ? is_array(Arr::first($id)) : is_array($id);
     }
 
     /**
