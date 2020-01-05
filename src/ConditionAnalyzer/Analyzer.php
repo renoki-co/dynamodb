@@ -5,7 +5,6 @@ namespace Rennokki\DynamoDb\ConditionAnalyzer;
 use Illuminate\Support\Arr;
 use Rennokki\DynamoDb\ComparisonOperator;
 use Rennokki\DynamoDb\DynamoDbModel;
-use Rennokki\DynamoDb\Helper;
 
 class Analyzer
 {
@@ -170,7 +169,7 @@ class Analyzer
      */
     private function getCondition($column)
     {
-        return Helper::array_first($this->conditions, function ($condition) use ($column) {
+        return Arr::first($this->conditions, function ($condition) use ($column) {
             return $condition['column'] === $column;
         });
     }
