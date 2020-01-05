@@ -375,6 +375,8 @@ class DynamoDbCompositeModelTest extends DynamoDbNonCompositeModelTest
 
         $this->assertEquals($item, $klass::first()->toArray());
 
+        $this->assertEquals(1, $klass::getItemsCount());
+
         $this->assertEquals($item, $klass::find([
             'id' => $item['id'],
             'id2' => $item['id2'],
