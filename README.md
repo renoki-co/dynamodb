@@ -4,10 +4,12 @@ Laravel DynamoDB
 [![Latest Stable Version](https://poser.pugx.org/rennokki/dynamodb/v/stable)](https://packagist.org/packages/rennokki/dynamodb)
 [![Total Downloads](https://poser.pugx.org/rennokki/dynamodb/downloads)](https://packagist.org/packages/rennokki/dynamodb)
 [![Monthly Downloads](https://poser.pugx.org/rennokki/dynamodb/d/monthly)](https://packagist.org/packages/rennokki/dynamodb)
-[![Build Status](https://travis-ci.org/rennokki/dynamodb.svg?branch=master)](https://travis-ci.org/rennokki/dynamodb)
+[![Build Status](https://travis-ci.com/rennokki/dynamodb.svg?branch=master)](https://travis-ci.com/rennokki/dynamodb)
 [![codecov](https://codecov.io/gh/rennokki/dynamodb/branch/master/graph/badge.svg)](https://codecov.io/gh/rennokki/dynamodb/branch/master)
 [![StyleCI](https://github.styleci.io/repos/223236785/shield?branch=master)](https://github.styleci.io/repos/223236785)
 [![License](https://poser.pugx.org/rennokki/dynamodb/license)](https://packagist.org/packages/rennokki/dynamodb)
+
+[![PayPal](https://img.shields.io/badge/PayPal-donate-blue.svg)](https://paypal.me/rennokki)
 
 This package is a fork from [the original package by Bao Pham](https://github.com/baopham/laravel-dynamodb). This version adds support for Laravel 6.0^ and tries to offer better support for the PRs.
 
