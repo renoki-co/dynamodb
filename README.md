@@ -7,7 +7,6 @@ Laravel DynamoDB
 [![Build Status](https://travis-ci.com/rennokki/dynamodb.svg?branch=master)](https://travis-ci.com/rennokki/dynamodb)
 [![codecov](https://codecov.io/gh/rennokki/dynamodb/branch/master/graph/badge.svg)](https://codecov.io/gh/rennokki/dynamodb/branch/master)
 [![StyleCI](https://github.styleci.io/repos/223236785/shield?branch=master)](https://github.styleci.io/repos/223236785)
-[![License](https://poser.pugx.org/rennokki/dynamodb/license)](https://packagist.org/packages/rennokki/dynamodb)
 
 [![PayPal](https://img.shields.io/badge/PayPal-donate-blue.svg)](https://paypal.me/rennokki)
 
@@ -15,31 +14,44 @@ This package is a fork from [the original package by Bao Pham](https://github.co
 
 > For advanced users only. If you're not familiar with Laravel, [Laravel Eloquent](https://laravel.com/docs/eloquent) and [DynamoDB](https://aws.amazon.com/dynamodb/), then I suggest that you get familiar with those first.
 
-* [Install](#install)
-* [Usage](#usage)
-  * [find() and delete()](#find-and-delete)
-  * [Conditions](#conditions)
-  * [all() & first()](#all-and-first)
-  * [Pagination](#pagination)
-  * [update](#update) / [updateAsync()](#updateasync)
-  * [save](#save) / [saveAsync()](#saveasync)
-  * [delete](#delete) / [deleteAsync()](#deleteasync)
-  * [chunk](#chunk)
-  * [limit() / take()](#limit-and-take)
-  * [firstOrFail()](#firstorfail) / [findOrFail()](#findorfail)
-  * [refresh()](#refresh)
-  * [getItemsCount()](#get-items-count)
-  * [Query scope](#query-scope)
-  * [REMOVE — Deleting Attributes From An Item](#remove--deleting-attributes-from-an-item)
-  * [toSql()](#tosql-style)
-  * [Decorate the Query](#decorate-query)
-* [Indexes](#indexes)
-* [Composite Keys](#composite-keys)
-* [Query Builder](#query-builder)
-* [Requirements](#requirements)
-* [FAQ](#faq)
-* [License](LICENSE)
-* [Author and Contributors](#author-and-contributors)
+- [Laravel DynamoDB](#laravel-dynamodb)
+  - [Install](#install)
+  - [Install (for Lumen)](#install-for-lumen)
+  - [Usage](#usage)
+    - [Extend your Model](#extend-your-model)
+    - [Add Trait to Model (to Sync)](#add-trait-to-model-to-sync)
+    - [Query Builder](#query-builder)
+    - [AWS SDK](#aws-sdk)
+  - [Supported features](#supported-features)
+      - [find() and delete()](#find-and-delete)
+      - [Conditions](#conditions)
+        - [whereNull() and whereNotNull()](#wherenull-and-wherenotnull)
+      - [all() and first()](#all-and-first)
+      - [Pagination](#pagination)
+      - [update()](#update)
+      - [updateAsync()](#updateasync)
+      - [save()](#save)
+      - [saveAsync()](#saveasync)
+      - [delete()](#delete)
+      - [deleteAsync()](#deleteasync)
+      - [chunk()](#chunk)
+      - [limit() and take()](#limit-and-take)
+      - [firstOrFail()](#firstorfail)
+      - [findOrFail()](#findorfail)
+      - [refresh()](#refresh)
+      - [getItemsCount()](#getitemscount)
+      - [Query Scope](#query-scope)
+      - [REMOVE — Deleting Attributes From An Item](#remove--deleting-attributes-from-an-item)
+      - [toSql()](#tosql)
+      - [Decorate Query](#decorate-query)
+  - [Indexes](#indexes)
+  - [Composite Keys](#composite-keys)
+  - [Query Builder](#query-builder-1)
+  - [Requirements](#requirements)
+  - [FAQ](#faq)
+  - [Security](#security)
+  - [Credits](#credits)
+  - [License](#license)
 
 Install
 ------
@@ -555,12 +567,21 @@ A: Please see [this issue](https://github.com/baopham/laravel-dynamodb/issues/11
 Q: How do I use with Job? Getting a SerializesModels error
 A: You can either [write your own restoreModel](https://github.com/baopham/laravel-dynamodb/issues/132) or remove the `SerializesModels` trait from your Job.
 
-Author and Contributors
--------
-* [Bao Pham](https://github.com/baopham/laravel-dynamodb)
-* [warrick-loyaltycorp](https://github.com/warrick-loyaltycorp)
-* [Alexander Ward](https://github.com/cthos)
-* [Quang Ngo](https://github.com/vanquang9387)
-* [David Higgins](https://github.com/zoul0813)
-* [Damon Williams](https://github.com/footballencarta)
-* [Alex Renoki](https://github.com/rennokki)
+## Security
+
+If you discover any security related issues, please email alex@renoki.org instead of using the issue tracker.
+
+## Credits
+
+- [Bao Pham](https://github.com/baopham/laravel-dynamodb)
+- [warrick-loyaltycorp](https://github.com/warrick-loyaltycorp)
+- [Alexander Ward](https://github.com/cthos)
+- [Quang Ngo](https://github.com/vanquang9387)
+- [David Higgins](https://github.com/zoul0813)
+- [Damon Williams](https://github.com/footballencarta)
+- [Alex Renoki](https://github.com/rennokki)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
