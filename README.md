@@ -8,8 +8,6 @@ Laravel DynamoDB
 [![codecov](https://codecov.io/gh/rennokki/dynamodb/branch/master/graph/badge.svg)](https://codecov.io/gh/rennokki/dynamodb/branch/master)
 [![StyleCI](https://github.styleci.io/repos/223236785/shield?branch=master)](https://github.styleci.io/repos/223236785)
 
-[![PayPal](https://img.shields.io/badge/PayPal-donate-blue.svg)](https://paypal.me/rennokki)
-
 This package is a fork from [the original package by Bao Pham](https://github.com/baopham/laravel-dynamodb). This version adds support for Laravel 6.0^ and tries to offer better support for the PRs.
 
 > For advanced users only. If you're not familiar with Laravel, [Laravel Eloquent](https://laravel.com/docs/eloquent) and [DynamoDB](https://aws.amazon.com/dynamodb/), then I suggest that you get familiar with those first.
