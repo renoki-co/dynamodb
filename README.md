@@ -1,4 +1,4 @@
-![CI](https://github.com/renoki-co/renoki-co/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/renoki-co/dynamodb/workflows/CI/badge.svg?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/rennokki/dynamodb/v/stable)](https://packagist.org/packages/rennokki/dynamodb)
 [![Total Downloads](https://poser.pugx.org/rennokki/dynamodb/downloads)](https://packagist.org/packages/rennokki/dynamodb)
 [![Monthly Downloads](https://poser.pugx.org/rennokki/dynamodb/d/monthly)](https://packagist.org/packages/rennokki/dynamodb)
