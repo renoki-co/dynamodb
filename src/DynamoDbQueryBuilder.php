@@ -246,7 +246,7 @@ class DynamoDbQueryBuilder
         // Here we will make some assumptions about the operator. If only 2 values are
         // passed to the method, we will assume that the operator is an equals sign
         // and keep going. Otherwise, we'll require the operator to be passed in.
-        if (func_num_args() == 2) {
+        if (func_num_args() === 2) {
             [$value, $operator] = [$operator, '='];
         }
 
@@ -316,8 +316,11 @@ class DynamoDbQueryBuilder
     {
         if (count($query->wheres)) {
             $type = 'Nested';
+
             $column = null;
+
             $value = $query->wheres;
+
             $this->wheres[] = compact('column', 'type', 'value', 'boolean');
         }
 
@@ -492,8 +495,7 @@ class DynamoDbQueryBuilder
             ->setConsistentRead(true);
 
         if (! empty($columns)) {
-            $query
-                ->setProjectionExpression($this->projectionExpression->parse($columns))
+            $query->setProjectionExpression($this->projectionExpression->parse($columns))
                 ->setExpressionAttributeNames($this->expressionAttributeNames->all());
         }
 
@@ -574,7 +576,7 @@ class DynamoDbQueryBuilder
         $result = $this->find($id, $columns);
 
         if ($this->isMultipleIds($id)) {
-            if (count($result) == count(array_unique($id))) {
+            if (count($result) === count(array_unique($id))) {
                 return $result;
             }
         } elseif (! is_null($result)) {
@@ -754,11 +756,9 @@ class DynamoDbQueryBuilder
         $limit = isset($this->limit) ? $this->limit : static::MAX_LIMIT;
         $raw = $this->toDynamoDbQuery(['count(*)'], $limit);
 
-        if ($raw->op === 'Scan') {
-            $res = $this->client->scan($raw->query);
-        } else {
-            $res = $this->client->query($raw->query);
-        }
+        $res = $raw->op === 'Scan'
+            ? $this->client->scan($raw->query)
+            : $this->client->query($raw->query);
 
         return $res['Count'];
     }
@@ -803,13 +803,12 @@ class DynamoDbQueryBuilder
                 $iterator = new \LimitIterator($iterator, 0, $raw->query['Limit']);
             }
         } else {
-            if ($raw->op === 'Scan') {
-                $res = $this->client->scan($raw->query);
-            } else {
-                $res = $this->client->query($raw->query);
-            }
+            $res = $raw->op === 'Scan'
+                ? $this->client->scan($raw->query)
+                : $this->client->query($raw->query);
 
             $this->lastEvaluatedKey = Arr::get($res, 'LastEvaluatedKey');
+
             $iterator = $res['Items'];
         }
 
@@ -871,11 +870,9 @@ class DynamoDbQueryBuilder
         if (! empty($columns)) {
             // Either we try to get the count or specific columns
 
-            if ($columns == ['count(*)']) {
-                $queryBuilder->setSelect('COUNT');
-            } else {
-                $queryBuilder->setProjectionExpression($this->projectionExpression->parse($columns));
-            }
+            $columns === ['count(*)']
+                ? $queryBuilder->setSelect('COUNT')
+                : $queryBuilder->setProjectionExpression($this->projectionExpression->parse($columns));
         }
 
         if (! empty($this->lastEvaluatedKey)) {

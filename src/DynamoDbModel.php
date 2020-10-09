@@ -542,6 +542,7 @@ abstract class DynamoDbModel extends Model
     public static function getItemsCount(): int
     {
         $model = new static;
+
         $describeTable = $model->getClient()->describeTable([
             'TableName' => $model->getTable(),
         ]);
@@ -569,6 +570,7 @@ abstract class DynamoDbModel extends Model
     public function __wakeup()
     {
         parent::__wakeup();
+
         $this->setupDynamoDb();
     }
 }
