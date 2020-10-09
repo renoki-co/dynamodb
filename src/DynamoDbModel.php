@@ -80,8 +80,11 @@ abstract class DynamoDbModel extends Model
     public function __construct(array $attributes = [])
     {
         $this->bootIfNotBooted();
+
         $this->syncOriginal();
+
         $this->fill($attributes);
+
         $this->setupDynamoDb();
     }
 
@@ -175,6 +178,7 @@ abstract class DynamoDbModel extends Model
         $this->wasRecentlyCreated = $create;
 
         $this->fireModelEvent($create ? 'created' : 'updated', false);
+
         $this->finishSave($options);
 
         return $saved;

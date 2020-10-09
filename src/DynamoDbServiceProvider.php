@@ -20,8 +20,12 @@ class DynamoDbServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/../config/dynamodb.php' => app()->basePath('config/dynamodb.php'),
+            __DIR__.'/../config/dynamodb.php' => config_path('dynamodb.php'),
         ]);
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/dynamodb.php', 'dynamodb'
+        );
     }
 
     /**
@@ -36,13 +40,15 @@ class DynamoDbServiceProvider extends ServiceProvider
         ];
 
         $this->app->singleton(DynamoDbClientInterface::class, function () use ($marshalerOptions) {
-            $client = new DynamoDbClientService(new Marshaler($marshalerOptions), new EmptyAttributeFilter());
-
-            return $client;
+            return new DynamoDbClientService(
+                new Marshaler($marshalerOptions), new EmptyAttributeFilter
+            );
         });
 
         $this->app->singleton('dynamodb', function () {
-            return new DynamoDbManager(app(DynamoDbClientInterface::class));
+            return new DynamoDbManager(
+                $this->app->make(DynamoDbClientInterface::class)
+            );
         });
     }
 }
