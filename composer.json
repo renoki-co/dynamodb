@@ -3,7 +3,7 @@
     "description": "AWS DynamoDB Eloquent ORM for Laravel 6+",
     "keywords": ["laravel", "dynamodb", "aws", "amazon", "query"],
     "require": {
-        "aws/aws-sdk-php": "^3.0",
+        "aws/aws-sdk-php": "^3.142",
         "illuminate/support": "^6.0|^7.0|^8.0",
         "illuminate/database": "^6.0|^7.0|^8.0"
     },
