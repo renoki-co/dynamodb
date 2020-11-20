@@ -8,7 +8,7 @@
 Laravel DynamoDB
 ================
 
-This package is a fork from [the original package by Bao Pham](https://github.com/baopham/laravel-dynamodb). This version adds support for Laravel 6.0^ and tries to offer better support for the PRs.
+This package is a fork from [the original package by Bao Pham](https://github.com/baopham/laravel-dynamodb).
 
 > For advanced users only. If you're not familiar with Laravel, [Laravel Eloquent](https://laravel.com/docs/eloquent) and [DynamoDB](https://aws.amazon.com/dynamodb/), then I suggest that you get familiar with those first.
 
