@@ -5,8 +5,8 @@
     "require": {
         "aws/aws-sdk-php": "^3.142",
         "guzzlehttp/guzzle": "^6.5|^7.0",
-        "illuminate/support": "^7.0|^8.0",
-        "illuminate/database": "^7.0|^8.0"
+        "illuminate/support": "^7.30|^8.23",
+        "illuminate/database": "^7.30|^8.23"
     },
     "license": "MIT",
     "authors": [
